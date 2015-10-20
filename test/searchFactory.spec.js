@@ -8,6 +8,11 @@ describe('factory: Search', function() {
     search = Search;
   }));
 
+    afterEach(function() {
+      httpBackend.verifyNoOutstandingExpectation();
+      httpBackend.verifyNoOutstandingRequest();
+    });
+
   var items = [
     {
       "login": "tansaku",
