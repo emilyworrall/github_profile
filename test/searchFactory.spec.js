@@ -1,18 +1,5 @@
 describe('factory: Search', function() {
 
-  var search;
-
-  beforeEach(module('GitUserSearch'));
-
-  beforeEach(inject(function(Search) {
-    search = Search;
-  }));
-
-    afterEach(function() {
-      httpBackend.verifyNoOutstandingExpectation();
-      httpBackend.verifyNoOutstandingRequest();
-    });
-
   var items = [
     {
       "login": "tansaku",
@@ -26,15 +13,24 @@ describe('factory: Search', function() {
     }
   ];
 
+  var search;
+
+  beforeEach(module('GitUserSearch'));
+
+  beforeEach(inject(function(Search) {
+    search = Search;
+  }));
+
+  var httpBackend;
+
   beforeEach(inject(function($httpBackend) {
-    httpBackend = $httpBackend
+    httpBackend = $httpBackend;
     httpBackend
       .when("GET", "https://api.github.com/search/users?access_token=" + gitAccessToken + "&q=hello")
       .respond(
         { items: items }
       );
   }));
-
 
   it('responds to query', function() {
     expect(search.query).toBeDefined();
