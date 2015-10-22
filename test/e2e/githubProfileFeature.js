@@ -26,4 +26,12 @@ describe('Github Profile Finder', function() {
     var profiles = element.all(by.repeater('user in searchCtrl.searchResult.items'));
     expect(profiles.last().getText()).toEqual('spikelynch');
   });
+
+  it('can count the number of Spikes', function() {
+    searchBox.sendKeys('spike');
+    searchButton.click();
+    element.all(by.repeater('user in searchCtrl.searchResult.items')).then(function(items) {
+      expect(items.length).toBe(30);
+    });
+  });
 });
